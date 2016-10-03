@@ -6,4 +6,16 @@ class Question < ActiveRecord::Base
   # Validations
   validates :poll, :text, presence: true
 
+  def results_includes
+    results = {}
+    answer_choices = self.answer_choices.includes(:responses)
+
+    answer_choices.each do |answer_choice|
+    results[answer_choice.text] = answer_choice.responses.length #Due to ActiveRecord weirdness, use responses.length instead of responses.count
+    end
+    results
+  end
+
+  def results_
+
 end

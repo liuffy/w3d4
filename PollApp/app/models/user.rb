@@ -12,14 +12,6 @@ class User < ActiveRecord::Base
 
   # Validations
   validates :user_name, presence: true, uniqueness: true
-
-  def not_duplicate_response
-
-  # Write a custom validation method to check that
-  # the respondent has not previously answered this question. This is a
-  # deceptively hard thing to do and will require several steps:
-
-
   end
 
 end
