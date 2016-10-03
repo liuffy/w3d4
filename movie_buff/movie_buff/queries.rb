@@ -46,7 +46,7 @@ def starring(whazzername)
 	# A name is like whazzername if the actor's name contains all of the letters in whazzername, ignoring case, in order.
 
 	# ex. "Sylvester Stallone" is like "sylvester" and "lester stone" but not like "stallone sylvester" or "zylvester ztallone"
-  matcher = "%#{whazzername.split(//).join("%")}%"
+  matcher = "%#{whazzername.split(//).join("%")}%" #this will search them based on order
   Actor.where("name ilike ?", matcher).first.movies # iLike does a case insensitive search
 end
 
@@ -92,6 +92,7 @@ end
 
 def actor_out_of_work
   # Find the number of actors in the database who have not appeared in a movie
+  
   # This one needs to be LEFT JOINed, otherwise NULL values won't be included!!!
   Actor.select(:name).joins('LEFT JOIN castings on castings.actor_id = actors.id').where('castings.ord is NULL').count
 end
