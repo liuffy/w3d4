@@ -16,6 +16,16 @@ class Question < ActiveRecord::Base
     results
   end
 
-  def results_
+  def results_joins
+    acs_with_responses = self
+      .answer_choices
+      .select("answer_choices.*, COUNT(*) as response_count")
+      .joins(:responses)
+      .group("answer_choices.id")
+
+    acs_with_responses.map do |ac|
+      [ac.text, ac.response_count]
+    end
+  end
 
 end
